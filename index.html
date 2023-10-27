@@ -63,6 +63,13 @@
     }
 
     async function getFriendship() {
+      const friend = await liff.getFriendship();
+      document.getElementById("friendship").append(friend.friendFlag);
+      // if (!friend.friendFlag) {
+      //   if (confirm("Add Friend Bot?")) {
+      //     window.location = "<link>"
+      //   }
+      // }
     }
 
     async function sendMsg() {
@@ -80,7 +87,7 @@
 
     function getContext() {
       const context = liff.getContext();
-      document.getElementById("type").append(context.type);
+      document.getElementById("type").append(liff.getContext().type);
       document.getElementById("viewType").append(context.viewType);
       document.getElementById("utouId").append(context.utouId);
       document.getElementById("roomId").append(context.roomId);
