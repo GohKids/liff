@@ -87,7 +87,7 @@
 
     function getContext() {
       const context = liff.getContext();
-      document.getElementById("type").append(liff.getContext().type);
+      document.getElementById("type").append(context.type);
       document.getElementById("viewType").append(context.viewType);
       document.getElementById("utouId").append(context.utouId);
       document.getElementById("roomId").append(context.roomId);
@@ -122,8 +122,8 @@
       await liff.init({ liffId: "2001341265-mLxAyZzB" })
       getEnvironment()
       getUserProfile()
-      // getContext()
-      // getFriendship()
+      getContext()
+      getFriendship()
       // createUniversalLink()
     }
     main()
