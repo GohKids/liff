@@ -69,6 +69,12 @@
     }
 
     function getContext() {
+      const context = liff.getContext();
+      document.getElementById("type").append(context.type);
+      document.getElementById("viewType").append(context.viewType);
+      document.getElementById("utouId").append(context.utouId);
+      document.getElementById("roomId").append(context.roomId);
+      document.getElementById("groupId").append(context.groupId);
     }
 
     async function getUserProfile() {
