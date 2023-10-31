@@ -45,21 +45,41 @@
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script>
     function createUniversalLink() {
+      const link1 = liff.permanentLink.createUrl();
+      document.getElementById("universalLink1").append(link1);
+      liff.permanentLink.setExtraQueryParam('param=9');
+      const link2 = liff.permanentLink.createUrl();
+      document.getElementById("universalLink2").append(link2);
     }
 
     async function shareMsg() {
+      await liff.shareTargetPicker([
+        {
+          "type" : "text",
+          "text" : "This message was sent by shareTargetPicker"
+        }
+      ])
     }
 
     function logOut() {
+      liff.logout();
+      window.location.reload();
     }
 
     function closed() {
+      liff.closeWindow();
     }
 
     async function scanCode() {
+      const result = await liff.scanCode();
+      document.getElementById("scanCode").append(result.value);
     }
 
     function openWindow() {
+      liff.openWindow({
+        url: "https://www.ttbfoundation.org",
+        external: true
+      })
     }
 
     async function getFriendship() {
@@ -75,10 +95,15 @@
     async function sendMsg() {
       if (liff.getContext().type !== "none") {
         await liff.sendMessages([
+          // {
+          //   "type" : "sticker",
+          //   "stickerId" : 52114115,
+          //   "packageId" : 11539
+          // }
           {
-            "type" : "sticker",
-            "stickerId" : 52114115,
-            "packageId" : 11539
+            "type" : "image",
+            "originalContentUrl" : "https://www.scagency.co.uk/wp-content/uploads/2019/01/AdobeStock_70911496-1mb-1-1200x795.jpg",
+            "previewImageUrl" : "https://www.scagency.co.uk/wp-content/uploads/2019/01/AdobeStock_70911496-1mb-1-1200x795.jpg"
           }
         ]);
         alert("Message sent");
@@ -119,12 +144,17 @@
     }
 
     async function main() {
-      await liff.init({ liffId: "2001341265-mLxAyZzB" })
-      getEnvironment()
-      getUserProfile()
-      getContext()
-      getFriendship()
-      // createUniversalLink()
+      await liff.init({ liffId: "2001341265-mLxAyZzB" });
+      document.getElementById("isLoggedIn").append(liff.isLoggedIn());
+      if (liff.isLoggedIn()) {
+        getEnvironment();
+        getUserProfile();
+        getContext();
+        getFriendship();
+      } else {
+        liff.login();
+      }
+      createUniversalLink()
     }
     main()
   </script>
